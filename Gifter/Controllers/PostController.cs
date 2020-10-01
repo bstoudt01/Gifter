@@ -90,5 +90,14 @@ namespace Gifter.Controllers
         {
             return Ok(_postRepository.Search(q, sortDesc));
         }
+
+        //api/post/hottest?since=<SOME_DATE>
+        //api/post/hottest?since=2020-02-01
+        //api/post/hottest?since=06-01-2020
+        [HttpGet("hottest")]
+        public IActionResult Hottest(DateTime since)
+        {
+            return Ok(_postRepository.Hottest(since));
+        }
     }
 }
