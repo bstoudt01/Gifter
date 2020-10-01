@@ -15,12 +15,14 @@ namespace Gifter.Controllers
             _postRepository = postRepository;
         }
 
+        //API/Post
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(_postRepository.GetAll());
         }
 
+        //API/Post/GetWithComments
         [HttpGet("GetWithComments")]
         public IActionResult GetWithComments()
         {
@@ -28,6 +30,7 @@ namespace Gifter.Controllers
             return Ok(posts);
         }
 
+        //API/Post/1
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -39,6 +42,7 @@ namespace Gifter.Controllers
             return Ok(post);
         }
 
+        //API/Post/GetWithComments/1
         [HttpGet("GetWithComments/{id}")]
         public IActionResult GetWithComments(int id)
         {
@@ -50,6 +54,7 @@ namespace Gifter.Controllers
             return Ok(post);
         }
 
+        //API/Post/
         [HttpPost]
         public IActionResult Post(Post post)
         {
@@ -57,6 +62,7 @@ namespace Gifter.Controllers
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
 
+        //API/Post/1
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         {
@@ -69,11 +75,20 @@ namespace Gifter.Controllers
             return NoContent();
         }
 
+        //API/Post/1
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _postRepository.Delete(id);
             return NoContent();
+        }
+
+        //SEARCH
+        //localhost:5001/api/post/search?q=p&sortDesc=false
+        [HttpGet("search")]
+        public IActionResult Search(string q, bool sortDesc)
+        {
+            return Ok(_postRepository.Search(q, sortDesc));
         }
     }
 }
