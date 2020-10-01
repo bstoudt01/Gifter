@@ -48,6 +48,7 @@ namespace Gifter.Repositories
                                 Email = DbUtils.GetString(reader, "Email"),
                                 DateCreated = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
                                 ImageUrl = DbUtils.GetString(reader, "UserProfileImageUrl"),
+                                Bio = DbUtils.GetString(reader, "Bio"),
                             },
                         });
                     }
@@ -104,6 +105,8 @@ namespace Gifter.Repositories
                                     Email = DbUtils.GetString(reader, "Email"),
                                     DateCreated = DbUtils.GetDateTime(reader, "UserProfileDateCreated"),
                                     ImageUrl = DbUtils.GetString(reader, "UserProfileImageUrl"),
+                                    Bio = DbUtils.GetString(reader, "Bio"),
+
                                 },
                                 Comments = new List<Comment>()
                             };
@@ -118,7 +121,7 @@ namespace Gifter.Repositories
                                 Id = DbUtils.GetInt(reader, "CommentId"),
                                 Message = DbUtils.GetString(reader, "Message"),
                                 PostId = postId,
-                                UserProfileId = DbUtils.GetInt(reader, "CommentUserProfileId")
+                                UserProfileId = DbUtils.GetInt(reader, "CommentUserProfileId"),
                             });
                         }
                     }
@@ -231,7 +234,7 @@ namespace Gifter.Repositories
                                 Id = DbUtils.GetInt(reader, "CommentId"),
                                 Message = DbUtils.GetString(reader, "Message"),
                                 PostId = postId,
-                                UserProfileId = DbUtils.GetInt(reader, "CommentUserProfileId")
+                                UserProfileId = DbUtils.GetInt(reader, "CommentUserProfileId"),
                             });
                         }
                     }

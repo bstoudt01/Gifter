@@ -111,6 +111,7 @@ namespace Gifter.Utils
         /// <param name="cmd">The command to which to add the parameter.</param>
         /// <param name="name">The name of the parameter.</param>
         /// <param name="value">The value of the parameter. May be null.</param>
+        //No Return Needed b\c we are MUTATING the cmd property, adding the paramaters property to it
         public static void AddParameter(SqlCommand cmd, string name, object value)
         {
             if (value == null)
