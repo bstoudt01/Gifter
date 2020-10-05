@@ -36,7 +36,6 @@ const PostForm = () => {
             console.log("newjoke", NewJoke);
             console.log("newPost state", newPost);
             addPost(NewJoke);
-
         }
     }
 

@@ -4,6 +4,9 @@ export const PostContext = React.createContext();
 
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([]);
+    const [searchTerms, setSearchTerms] = useState("");
+    const [orderBy, setOrderBy] = useState("false");
+
     const getAllPosts = () => {
         //no http  = relative url.. urCurrentServer/api/post.. by going to our package.json and find the proxy host we provided (with http is absolute url)
         return fetch("/api/post")
@@ -22,8 +25,16 @@ export const PostProvider = (props) => {
             .then(getAllPosts)
     };
 
+
+    const searchPosts = (searchTerms, orderBy) => {
+        return fetch(`/api/post/search?q=${searchTerms}sortDesc=${orderBy}`)
+            .then((res) => res.json())
+            //.then(setPosts);
+            .then(getAllPosts);
+    };
+
     return (
-        <PostContext.Provider value={{ posts, getAllPosts, addPost }}>
+        <PostContext.Provider value={{ posts, getAllPosts, addPost, searchTerms, orderBy, setSearchTerms, searchPosts }}>
             {props.children}
         </PostContext.Provider>
     );
