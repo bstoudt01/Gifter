@@ -52,10 +52,13 @@ namespace Gifter.Repositories
                        up.Name, up.Bio, up.Email, up.DateCreated AS UserProfileDateCreated,
                        up.ImageUrl AS UserProfileImageUrl,
 
-                       c.Id AS CommentId, c.Message, c.UserProfileId AS CommentUserProfileId
+                       c.Id AS CommentId, c.Message, c.UserProfileId AS CommentUserProfileId,
+                       cup.Name AS CommentName, cup.Bio As CommentBio, cup.Email As CommentEmail, cup.DateCreated AS CommentUserProfileDateCreated,
+                       cup.ImageUrl AS CommentUserProfileImageUrl
                 FROM Post p
                        LEFT JOIN UserProfile up ON p.UserProfileId = up.id
                        LEFT JOIN Comment c on c.PostId = p.id
+                       LEFT JOIN UserProfile cup on c.UserProfileId = cup.id
                 ORDER BY p.DateCreated";
 
                     var reader = cmd.ExecuteReader();
@@ -81,6 +84,15 @@ namespace Gifter.Repositories
                                 Message = DbUtils.GetString(reader, "Message"),
                                 PostId = postId,
                                 UserProfileId = DbUtils.GetInt(reader, "CommentUserProfileId"),
+                                UserProfile = new UserProfile()
+                                {
+                                    Id = DbUtils.GetInt(reader, "CommentUserProfileId"),
+                                    Name = DbUtils.GetString(reader, "CommentName"),
+                                    Email = DbUtils.GetString(reader, "CommentEmail"),
+                                    Bio = DbUtils.GetString(reader, "CommentBio"),
+                                    DateCreated = DbUtils.GetDateTime(reader, "CommentUserProfileDateCreated"),
+                                    ImageUrl = DbUtils.GetString(reader, "CommentUserProfileImageUrl"),
+                                },
                             });
                         }
                     }

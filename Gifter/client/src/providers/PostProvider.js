@@ -14,6 +14,13 @@ export const PostProvider = (props) => {
             .then(setPosts);
     };
 
+    const getAllPostsWithComments = () => {
+        //no http  = relative url.. urCurrentServer/api/post.. by going to our package.json and find the proxy host we provided (with http is absolute url)
+        return fetch("/api/post/GetWithComments")
+            .then((res) => res.json())
+            .then(setPosts);
+    };
+
     const addPost = (post) => {
         return fetch("/api/post", {
             method: "POST",
@@ -34,7 +41,7 @@ export const PostProvider = (props) => {
     };
 
     return (
-        <PostContext.Provider value={{ posts, getAllPosts, addPost, searchTerms, orderBy, setSearchTerms, searchPosts }}>
+        <PostContext.Provider value={{ posts, getAllPosts, getAllPostsWithComments, addPost, searchTerms, orderBy, setSearchTerms, searchPosts }}>
             {props.children}
         </PostContext.Provider>
     );

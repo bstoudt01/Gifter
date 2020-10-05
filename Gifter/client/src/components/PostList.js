@@ -1,23 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../providers/PostProvider";
 import Post from "./Post";
-
+import PostWithComments from "./PostWithComments";
 const PostList = () => {
-    const { posts, getAllPosts, searchTerms } = useContext(PostContext);
+    const { posts, getAllPosts, getAllPostsWithComments, searchTerms } = useContext(PostContext);
 
     const [filteredPosts, setFilteredPosts] = useState([]);
 
-    useEffect(() => { getAllPosts(); }, []);
+    useEffect(() => { getAllPostsWithComments(); }, []);
 
 
     useEffect(() => {
 
-        if (searchTerms != "") {
-            const subSet = posts.filter(post => post.title.toLowerCase().includes(searchTerms))
-            // const commentSubSet = posts.filter(post => post.comments ? post.comments.toLowerCase().includes(searchTerms))
-            //const fullSubSet = `${subSet}${commentSubSet}`
+        if (searchTerms !== "") {
+            const titleSubSet = posts.filter(post => post.title.toLowerCase().includes(searchTerms))
+            // const captionSubSet = posts.filter(post => post.caption.toLowerCase().includes(searchTerms))
+            //const fullSubSet = `${titleSubSet}${captionSubSet}`
 
-            setFilteredPosts(subSet);
+            setFilteredPosts(titleSubSet);
 
         } else {
             setFilteredPosts(posts);
@@ -29,7 +29,7 @@ const PostList = () => {
             <div className="row justify-content-center">
                 <div className="cards-column">
                     {filteredPosts.map((post) => (
-                        <Post key={post.id} post={post} />
+                        <PostWithComments key={post.id} post={post} />
                     ))}
                 </div>
             </div>
