@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Gifter.Repositories;
 using Gifter.Models;
+using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Gifter.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -58,6 +61,7 @@ namespace Gifter.Controllers
         [HttpPost]
         public IActionResult Post(Post post)
         {
+            post.DateCreated = DateAndTime.Now;
             _postRepository.Add(post);
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }

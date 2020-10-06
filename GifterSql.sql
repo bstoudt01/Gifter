@@ -23,11 +23,14 @@ GO
 
 CREATE TABLE [UserProfile] (
   [Id] integer PRIMARY KEY identity NOT NULL,
+  [FirebaseUserId] NVARCHAR(28) NOT NULL,
   [Name] nvarchar(255) NOT NULL,
   [Email] nvarchar(255) NOT NULL,
   [ImageUrl] nvarchar(255),
   [Bio] nvarchar(255),
-  [DateCreated] datetime NOT NULL
+  [DateCreated] datetime NOT NULL,
+
+  CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
 )
 GO
 
@@ -58,13 +61,13 @@ ALTER TABLE [Subscription] ADD FOREIGN KEY ([ProviderId]) REFERENCES [UserProfil
 GO
 SET IDENTITY_INSERT [UserProfile] ON
 INSERT INTO [UserProfile]
-  ([Id], [Name], [Email], [ImageUrl], [Bio], [DateCreated])
+  ([Id], [FirebaseUserId], [Name], [Email], [ImageUrl], [Bio], [DateCreated])
 VALUES 
-  (1, 'Oliver Hardy', 'olie@email.com', null, null, '06-21-2020');
+  (1, 'Fy3bwjFhs3OcZq50ft7eZqeqtGm1', 'The Dude', 'thedude@thedude.com', null, null, '06-21-2020');
 INSERT INTO [UserProfile]
-  ([Id], [Name], [Email], [ImageUrl], [Bio], [DateCreated])
+  ([Id], [FirebaseUserId], [Name], [Email], [ImageUrl], [Bio], [DateCreated])
 VALUES 
-  (2, 'Stan Laurel', 'stan@email.com', null, null, '04-20-2020');
+  (2, 'uaVUOagiP4e6GrgJx9lBgCEiYpf1', 'Donny', 'donny@thedude.com', null, 'I am the Walrus', '04-20-2020');
 SET IDENTITY_INSERT [UserProfile] OFF
 SET IDENTITY_INSERT [Post] ON
 INSERT INTO [Post]
@@ -80,6 +83,6 @@ SET IDENTITY_INSERT [Comment] ON
 INSERT INTO [Comment]
   ([Id], [UserProfileId], [PostId], [Message])
 VALUES
-  (1, 2, 1, 'A comment is a comment is a comment'),
-  (2, 2, 1, 'another nosey mention');
+  (1, 2, 1, 'They Peed on my rug man!'),
+  (2, 2, 1, 'I am the Walrus');
 SET IDENTITY_INSERT [Comment] OFF

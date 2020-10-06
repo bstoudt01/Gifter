@@ -12,11 +12,11 @@ const Post = ({ post }) => {
                     <strong>{post.title}</strong>
                 </p>
                 <p>{post.caption}</p>
-                <div className="cards-column">
-                    {post.comments.map((comment) => (
+                {/* <div className="cards-column">
+                    {post.comments?.map((comment) => (
                         <PostComment key={comment.id} comment={comment} />
                     ))}
-                </div>
+                </div> */}
             </CardBody>
 
         </Card>

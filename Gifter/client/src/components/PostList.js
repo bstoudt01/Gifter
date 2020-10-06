@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../providers/PostProvider";
 import Post from "./Post";
+import PostSearch from "./PostSearch";
 import PostWithComments from "./PostWithComments";
 const PostList = () => {
     const { posts, getAllPosts, getAllPostsWithComments, searchTerms } = useContext(PostContext);
@@ -27,6 +28,7 @@ const PostList = () => {
     return (
         <div className="container">
             <div className="row justify-content-center">
+                <PostSearch />
                 <div className="cards-column">
                     {filteredPosts.map((post) => (
                         <PostWithComments key={post.id} post={post} />
