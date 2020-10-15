@@ -24,7 +24,7 @@ namespace Gifter.Controllers
         }
 
         //api/userProfile/firebaseUserId
-        [HttpGet("{firebaseUserId}")]
+        [HttpGet("firebase/{firebaseUserId}")]
         public IActionResult GetByFirebaseUserId(string firebaseUserId)
         {
          

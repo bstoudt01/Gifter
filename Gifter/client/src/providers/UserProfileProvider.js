@@ -19,6 +19,7 @@ export function UserProfileProvider(props) {
     }, []);
 
     const login = (email, pw) => {
+        debugger
         return firebase.auth().signInWithEmailAndPassword(email, pw)
             .then((signInResponse) => getUserProfile(signInResponse.user.uid))
             .then((userProfile) => {
@@ -51,7 +52,7 @@ export function UserProfileProvider(props) {
     //used in login
     const getUserProfile = (firebaseUserId) => {
         return getToken().then((token) =>
-            fetch(`${apiUrl}/${firebaseUserId}`, {
+            fetch(`${apiUrl}/firebase/${firebaseUserId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`

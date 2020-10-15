@@ -22,7 +22,7 @@ const ApplicationViews = () => {
                 {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/posts/:id">
+            <Route exact path="/posts/:id">
                 {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
             </Route>
 
