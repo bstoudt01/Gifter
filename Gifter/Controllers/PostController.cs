@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Gifter.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -22,6 +22,7 @@ namespace Gifter.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+
             return Ok(_postRepository.GetAll());
         }
 

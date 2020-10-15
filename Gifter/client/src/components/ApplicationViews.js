@@ -15,15 +15,15 @@ const ApplicationViews = () => {
     return (
         <Switch>
             <Route path="/" exact>
-                {isLoggedIn ? <PostList /> : <Redirect to="/Login" />}
+                {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/posts/add">
-                {isLoggedIn ? <PostForm /> : <Redirect to="/Login" />}
+                {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/posts/:id">
-                {isLoggedIn ? <PostDetails /> : <Redirect to="/Login" />}
+                {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/login">

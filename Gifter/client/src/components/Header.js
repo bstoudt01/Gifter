@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 const Header = () => {
@@ -16,6 +16,7 @@ const Header = () => {
                         Register
       </Link>
                 </>}
+
 
             {isLoggedIn &&
                 <>
@@ -34,8 +35,8 @@ const Header = () => {
           </Link>
                         </li>
                     </ul>
-                    <Link><a aria-current="page" className="nav-link"
-                        style={{ cursor: "pointer" }} onClick={logout}>Logout</a></Link>
+                    <a aria-current="page" className="nav-link"
+                        style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
                 </>
             }
         </nav>

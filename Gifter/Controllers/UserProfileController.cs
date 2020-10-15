@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Gifter.Controllers
 {
-    [Authorize]
+   
     [Route("api/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
@@ -23,10 +23,11 @@ namespace Gifter.Controllers
             _userProfileRepository = userProfileRepository;
         }
 
-
+        //api/userProfile/firebaseUserId
         [HttpGet("{firebaseUserId}")]
         public IActionResult GetByFirebaseUserId(string firebaseUserId)
         {
+         
             var userProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
             if (userProfile == null)
             {
@@ -36,17 +37,31 @@ namespace Gifter.Controllers
         }
 
         //api/userProfile
+        //updated to return a fail when the list is empty (for test proj)
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_userProfileRepository.GetAll());
+            var allProfiles = _userProfileRepository.GetAll();
+            if (allProfiles.Count == 0 )
+            {
+                return NotFound();
+            }
+            return Ok(allProfiles);
         }
 
         //api/userProfile/1
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_userProfileRepository.GetById(id));
+
+           var user = _userProfileRepository.GetById(id);
+            if (user == null )
+            {
+                return NotFound();
+            } else
+            {
+                return Ok(user);
+            };
         }
 
 

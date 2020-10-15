@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
-export const PostContext = React.createContext();
+export const PostContext = createContext();
 
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([]);
@@ -15,7 +15,7 @@ export const PostProvider = (props) => {
     const getAllPosts = () => {
         //no http  = relative url.. urCurrentServer/api/post.. by going to our package.json and find the proxy host we provided (with http is absolute url)
         getToken().then((token) =>
-            fetch("/api/post", {
+            fetch(apiUrl, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -27,7 +27,7 @@ export const PostProvider = (props) => {
 
     const getAllPostsWithComments = () => {
         getToken().then((token) =>
-            fetch("/api/post/GetWithComments", {
+            fetch(`${apiUrl}/GetWithComments`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -38,26 +38,35 @@ export const PostProvider = (props) => {
     };
 
     const getPost = (id) => {
-        return fetch(`/api/post/GetWithComments/${id}`).then((res) => res.json());
+        debugger
+        return fetch(`${apiUrl}/GetWithComments/${id}`).then((res) => res.json());
     };
 
     const addPost = (post) => {
-        return fetch("/api/post", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(post),
-        })
-            .then(getAllPosts)
+        getToken().then((token) =>
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(post),
+            })
+                .then(getAllPosts))
     };
 
 
     const searchPosts = (searchTerms, orderBy) => {
-        return fetch(`/api/post/search?q=${searchTerms}&sortDesc=${orderBy}`)
-            .then((res) => res.json())
-            //.then(setPosts);
-            .then(getAllPosts);
+        getToken().then((token) =>
+            fetch(`${apiUrl}/search?q=${searchTerms}&sortDesc=${orderBy}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+                .then((res) => res.json())
+                //.then(setPosts);
+                .then(getAllPosts));
     };
 
     return (

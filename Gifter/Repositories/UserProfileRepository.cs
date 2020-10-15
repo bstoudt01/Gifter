@@ -1,6 +1,7 @@
 ﻿using Gifter.Models;
 using Gifter.Utils;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic;
 using System.Collections.Generic;
 
 namespace Gifter.Repositories
@@ -144,7 +145,7 @@ namespace Gifter.Repositories
                     DbUtils.AddParameter(cmd, "@Name", userProfile.Name);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
                     DbUtils.AddParameter(cmd, "@ImageUrl", userProfile.ImageUrl);
-                    DbUtils.AddParameter(cmd, "@DateCreated", userProfile.DateCreated);
+                    DbUtils.AddParameter(cmd, "@DateCreated", DateAndTime.Now);
                     DbUtils.AddParameter(cmd, "@Bio", userProfile.Bio);
 
                     userProfile.Id = (int)cmd.ExecuteScalar();
